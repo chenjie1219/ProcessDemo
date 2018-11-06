@@ -33,6 +33,28 @@ extension ViewController{
         
     }
     
+    
+    func showAlert(_ title:String,_ message:String,_ completion:(()->())?) {
+        
+        let alert = NSAlert()
+        
+        alert.messageText = title
+        
+        alert.informativeText = message
+        
+        alert.icon = #imageLiteral(resourceName: "warn")
+        
+        alert.alertStyle = .warning
+        
+        alert.beginSheetModal(for: view.window!) { (response) in
+            
+            completion?()
+            
+        }
+        
+        
+    }
+    
 }
 
 
@@ -76,11 +98,7 @@ extension ViewController{
         
         guard repoPathFld.stringValue != "" else {
             
-            let alert = NSAlert()
-            
-            alert.informativeText = "No Git Repo URL"
-            
-            alert.runModal()
+            showAlert("No Git Repo URL", "No Git Repo URL", nil)
             
             return
             
@@ -90,11 +108,7 @@ extension ViewController{
         
         guard let executePath = UserDefaults.standard.value(forKey: kSelectedFilePath) as? String else {
             
-            let alert = NSAlert()
-            
-            alert.informativeText = "No Selected Path"
-            
-            alert.runModal()
+            showAlert("No Selected Path", "No Selected Path", nil)
             
             return
         }
